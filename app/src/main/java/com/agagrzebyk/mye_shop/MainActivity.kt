@@ -5,6 +5,7 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.agagrzebyk.mye_shop.model.Product
 
@@ -21,11 +22,13 @@ class MainActivity : AppCompatActivity() {
         val products = arrayListOf<Product>()
 
         for(i in 0..100){
-            products.add(Product("Organic Apple", "", 1.99))
+            products.add(Product("Organic Apple", "https://via.placeholder.com/300.png/09f/fff\n" +
+                    "\n" +
+                    "C/O https://placeholder.com/", 1.99))
         }
 
         recycler_view.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
+            layoutManager = GridLayoutManager(this@MainActivity, 2)
             adapter = ProductsAdapter(products)
         }
 

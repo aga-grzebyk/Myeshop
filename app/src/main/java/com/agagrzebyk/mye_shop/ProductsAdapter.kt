@@ -8,12 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.agagrzebyk.mye_shop.ProductsAdapter.ViewHolder
 import com.agagrzebyk.mye_shop.model.Product
+import com.squareup.picasso.Picasso
 
-class ProductsAdapter(private val products: ArrayList<Product>): RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
+class ProductsAdapter(private val products: ArrayList<Product>):
+    RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductsAdapter.ViewHolder, position: Int) {
+        Picasso.get().load(products[position].photoUrl).into(holder.image)
         holder.title.text = products[position].title
-        TODO("not implemented")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
