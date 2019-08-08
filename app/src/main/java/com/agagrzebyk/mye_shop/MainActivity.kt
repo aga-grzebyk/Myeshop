@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         val products = arrayListOf<Product>()
 
         for(i in 0..100){
-            products.add(Product("Organic Apple", "https://via.placeholder.com/300.png/09f/fff\n" +
+            products.add(Product("Organic Berrry", "https://via.placeholder.com/300.png/09f/fff\n" +
                     "\n" +
                     "C/O https://placeholder.com/", 1.99))
         }
