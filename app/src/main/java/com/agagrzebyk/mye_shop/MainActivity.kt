@@ -22,9 +22,7 @@ class MainActivity : AppCompatActivity() {
         val products = arrayListOf<Product>()
 
         for(i in 0..100){
-            products.add(Product("Organic Berrry", "https://via.placeholder.com/300.png/09f/fff\n" +
-                    "\n" +
-                    "C/O https://placeholder.com/", 1.99))
+            products.add(Product("Organic Berrry", "https://via.placeholder.com/150/0000FF", 1.99))
         }
 
         recycler_view.apply {
