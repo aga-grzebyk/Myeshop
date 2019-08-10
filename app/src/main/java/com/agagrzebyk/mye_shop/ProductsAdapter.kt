@@ -1,5 +1,6 @@
 package com.agagrzebyk.mye_shop
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,13 @@ class ProductsAdapter(private val products: ArrayList<Product>):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val View = LayoutInflater.from(parent.context).inflate(R.layout.product_row, parent, false)
-        return ViewHolder(View)
+        val holder = ViewHolder(View)
+        View.setOnClickListener {
+            val intent = Intent(parent.context, ProductDetails::class.java)
+            intent.putExtra("title", products[holder.adapterPosition].title)
+            parent.context.startActivity(intent)
+        }
+        return holder
     }
 
     override fun getItemCount() = products.size
@@ -32,7 +39,5 @@ class ProductsAdapter(private val products: ArrayList<Product>):
         val image: ImageView = itemView.findViewById(R.id.photo)
         val title: TextView = itemView.findViewById(R.id.title)
         val price: TextView = itemView.findViewById(R.id.price)
-
     }
-
 }
