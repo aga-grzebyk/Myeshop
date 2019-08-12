@@ -2,8 +2,44 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.agagrzebyk.mye_shop.MainActivity">
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
+
+    <group android:checkableBehavior="single">
+
+        <item
+                android:id="@+id/actionHome"
+                android:icon="@drawable/ic_attach_money_black_24dp"
+              android:title="@string/home"
+              android:orderInCategory="100"
+              app:showAsAction="never"/>
+
+        <item
+                android:id="@+id/actionJewelry"
+                android:icon="@drawable/ic_wb_sunny_black_24dp"
+                android:title="@string/jewelry"
+                android:orderInCategory="100"
+                app:showAsAction="never"/>
+
+        <item
+                android:id="@+id/actionEngagement"
+                android:icon="@drawable/ic_gesture_black_24dp"
+                android:title="@string/engagement"
+                android:orderInCategory="100"
+                app:showAsAction="never"/>
+
+        <item
+                android:id="@+id/actionWatches"
+                android:icon="@drawable/ic_watch_black_24dp"
+                android:title="@string/watches"
+                android:orderInCategory="100"
+                app:showAsAction="never"/>
+
+        <item
+                android:id="@+id/actionAccessories"
+                android:icon="@drawable/ic_style_black_24dp"
+                android:title="@string/accessories"
+                android:orderInCategory="100"
+                app:showAsAction="never"/>
+
+    </group>
+
 </menu>
