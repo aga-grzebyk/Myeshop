@@ -11,7 +11,7 @@ import com.agagrzebyk.mye_shop.ProductsAdapter.ViewHolder
 import com.agagrzebyk.mye_shop.model.Product
 import com.squareup.picasso.Picasso
 
-class ProductsAdapter(private val products: ArrayList<Product>):
+class ProductsAdapter(private val products: List<Product>):
     RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ProductsAdapter.ViewHolder, position: Int) {
