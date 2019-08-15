@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.agagrzebyk.mye_shop.model.Product
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.fragment_main.view.categoriesRecyclerView
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.io.File
@@ -33,6 +37,12 @@ class MainFragment  : Fragment(){
             }
         }
 
+        val categories = listOf("Rings", "Bracelets", "Necklace", "Pendants", "Earrings", "Ships", "Plants", "Rings", "Bracelets", "Necklace", "Pendants", "Earrings")
+
+        root.categoriesRecyclerView.apply {
+            layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+            adapter = CategoriesAdapter(categories)
+        }
 
         return root
     }
