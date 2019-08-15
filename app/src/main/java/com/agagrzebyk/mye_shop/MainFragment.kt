@@ -23,12 +23,12 @@ class MainFragment  : Fragment(){
             val json = URL("https://agagrzebyk.pl/data/products.json").readText()
 
             uiThread {
-                d("aga", "json: $json")
                 val products = Gson().fromJson(json, Array<Product>::class.java).toList()
 
                 root.recycler_view.apply {
                     layoutManager = GridLayoutManager(activity, 2)
                     adapter = ProductsAdapter(products)
+                    root.progressBar.visibility = View.GONE
                 }
             }
         }
