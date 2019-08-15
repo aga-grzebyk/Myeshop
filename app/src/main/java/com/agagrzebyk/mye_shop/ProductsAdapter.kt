@@ -25,9 +25,11 @@ class ProductsAdapter(private val products: List<Product>):
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val View = LayoutInflater.from(parent.context).inflate(R.layout.product_row, parent, false)
         val holder = ViewHolder(View)
+
         View.setOnClickListener {
             val intent = Intent(parent.context, ProductDetails::class.java)
             intent.putExtra("title", products[holder.adapterPosition].title)
+            intent.putExtra("photo_url", products[holder.adapterPosition].photoUrl)
             parent.context.startActivity(intent)
         }
         return holder
