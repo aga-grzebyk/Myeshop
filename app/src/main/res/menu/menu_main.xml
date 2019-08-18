@@ -40,6 +40,12 @@
                 android:orderInCategory="100"
                 app:showAsAction="never"/>
 
+        <item
+                android:id="@+id/actionAndmin"
+                android:icon="@drawable/ic_portrait_black_24dp"
+                android:title="Admin"
+                android:orderInCategory="100"
+                app:showAsAction="never"/>
     </group>
 
 </menu>

@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import com.agagrzebyk.mye_shop.Database.AppDatabase
+import com.agagrzebyk.mye_shop.Database.ProductFromDatabase
 import com.agagrzebyk.mye_shop.model.Product
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -23,12 +26,44 @@ class MainFragment  : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
 
+//        doAsync {
+//            val json = URL("https://agagrzebyk.pl/data/products.json").readText()
+//
+//            uiThread {
+//                val products = Gson().fromJson(json, Array<Product>::class.java).toList()
+//
+//                root.recycler_view.apply {
+//                    layoutManager = GridLayoutManager(activity, 2)
+//                    adapter = ProductsAdapter(products)
+//                    root.progressBar.visibility = View.GONE
+//                }
+//            }
+//        }
+
+        // 1 - we do stuff on the background Thread
         doAsync {
-            val json = URL("https://agagrzebyk.pl/data/products.json").readText()
 
+            // 2 - we set up Room database
+            val db = Room.databaseBuilder(
+                activity!!.applicationContext,
+                AppDatabase::class.java, "database-name"
+            ).build()
+
+            // 3 - we get the product from database
+            val productsFromDatabase = db.productDao().getAll()
+
+            // 4 - we convert it from Database/ProductFromDatabase to model/Product
+            val products = productsFromDatabase.map {
+                Product(
+                    it.title,
+                    "https://agagrzebyk.pl/data/face_02.jpg",
+                    it.price,
+                    true
+                )
+            }
+
+            // 5 -
             uiThread {
-                val products = Gson().fromJson(json, Array<Product>::class.java).toList()
-
                 root.recycler_view.apply {
                     layoutManager = GridLayoutManager(activity, 2)
                     adapter = ProductsAdapter(products)
@@ -37,7 +72,10 @@ class MainFragment  : Fragment(){
             }
         }
 
-        val categories = listOf("Rings", "Bracelets", "Necklace", "Pendants", "Earrings", "Ships", "Plants", "Rings", "Bracelets", "Necklace", "Pendants", "Earrings")
+        root.progressBar.visibility = View.GONE
+
+
+        val categories = listOf("RINGS", "BRACELETS", "NECKLACE", "PENSADNS", "EARRINGS", "BROOCHES", "CHARMS", "WATCHES", "ACCESSORIES")
 
         root.categoriesRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
