@@ -2,6 +2,7 @@ package com.agagrzebyk.mye_shop
 
 import android.os.Bundle
 import android.util.Log.d
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
@@ -79,9 +80,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item?.itemId == R.id.actionCard){
+            return true
+        }
         drawerLayout.openDrawer(GravityCompat.START)
         return true
     }
 
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        return true
+    }
 }
