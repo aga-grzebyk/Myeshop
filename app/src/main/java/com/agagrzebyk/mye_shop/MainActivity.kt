@@ -1,5 +1,6 @@
 package com.agagrzebyk.mye_shop
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log.d
 import android.view.Menu
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
 import com.agagrzebyk.mye_shop.Database.AppDatabase
 import com.agagrzebyk.mye_shop.Database.ProductFromDatabase
+import com.agagrzebyk.mye_shop.cart.CartActivity
 import com.agagrzebyk.mye_shop.model.Product
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -81,6 +83,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item?.itemId == R.id.actionCard){
+            d("aga", "going to cart")
+            startActivity(Intent(this, CartActivity::class.java))
             return true
         }
         drawerLayout.openDrawer(GravityCompat.START)
