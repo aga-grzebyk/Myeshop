@@ -26,62 +26,48 @@ class MainFragment  : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
 
-//        doAsync {
-//            val json = URL("https://agagrzebyk.pl/data/products.json").readText()
-//
-//            uiThread {
-//                val products = Gson().fromJson(json, Array<Product>::class.java).toList()
-//
-//                root.recycler_view.apply {
-//                    layoutManager = GridLayoutManager(activity, 2)
-//                    adapter = ProductsAdapter(products)
-//                    root.progressBar.visibility = View.GONE
-//                }
-//            }
-//        }
-
-        // 1 - we do stuff on the background Thread
-        doAsync {
-
-            // 2 - we set up Room database
-            val db = Room.databaseBuilder(
-                activity!!.applicationContext,
-                AppDatabase::class.java, "database-name"
-            ).build()
-
-            // 3 - we get the product from database
-            val productsFromDatabase = db.productDao().getAll()
-
-            // 4 - we convert it from Database/ProductFromDatabase to model/Product
-            val products = productsFromDatabase.map {
-                Product(
-                    it.title,
-                    "https://agagrzebyk.pl/data/face_02.jpg",
-                    it.price,
-                    true
-                )
-            }
-
-            // 5 -
-            uiThread {
-                root.recycler_view.apply {
-                    layoutManager = GridLayoutManager(activity, 2)
-                    adapter = ProductsAdapter(products)
-                    root.progressBar.visibility = View.GONE
-                }
-            }
-        }
-
-        root.progressBar.visibility = View.GONE
-
-
         val categories = listOf("RINGS", "BRACELETS", "NECKLACE", "PENSADNS", "EARRINGS", "BROOCHES", "CHARMS", "WATCHES", "ACCESSORIES")
 
         root.categoriesRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
             adapter = CategoriesAdapter(categories)
         }
-
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        searchButton.setOnClickListener{
+            // 1 - we do stuff on the background Thread
+            doAsync {
+
+                // 2 - we set up the Room database. We get the references to it
+                val db = Room.databaseBuilder(
+                    activity!!.applicationContext,
+                    AppDatabase::class.java, "database-name"
+                ).build()
+
+                // 3 - we get the product from database
+                val productsFromDatabase = db.productDao().searchFor("%${searchTerm.text}%")
+
+                // 4 - we convert it from Database/ProductFromDatabase to model/Product
+                val products = productsFromDatabase.map {
+                    Product(
+                        it.title,
+                        "https://agagrzebyk.pl/data/face_02.jpg",
+                        it.price,
+                        true
+                    )
+                }
+                uiThread {
+                    recycler_view.apply {
+                        layoutManager = GridLayoutManager(activity,2)
+                        adapter = ProductsAdapter(products)
+                    }
+                    progressBar.visibility = View.GONE
+                }
+            }
+        }
     }
 }
